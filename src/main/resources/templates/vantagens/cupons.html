@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Cupons')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<p class="sobretitulo">TROCA PRESENCIAL</p>
+<h1 th:text="${usuario.perfil == 'EMPRESA' ? 'Conferir cupons' : 'Meus cupons'}">
+</h1>
+<p th:if="${usuario.perfil == 'EMPRESA'}">Compare o código apresentado pelo aluno e confirme o uso uma única vez.</p>
+<p th:if="${usuario.perfil == 'ALUNO'}">Apresente o código ao parceiro. O mesmo código segue por email para vocês dois.</p>
+<p th:if="${#lists.isEmpty(cupons)}" class="vazio">Nenhum cupom por aqui ainda.</p>
+<article class="cupom" th:each="c : ${cupons}">
+<p class="sobretitulo" th:text="${c.vantagem.empresa.nome}">
+</p>
+<h2 th:text="${c.descricaoVantagem}">
+</h2>
+<p>
+<strong th:text="${c.quantidade}">
+</strong> moedas · <span th:text="${#temporals.format(c.data, 'dd/MM/yyyy HH:mm')}">
+</span>
+</p>
+<code th:text="${c.codigo}">
+</code>
+<p th:text="${c.utilizadaEm == null ? 'Disponível para uso' : 'Utilizado em ' + #temporals.format(c.utilizadaEm, 'dd/MM/yyyy HH:mm')}">
+</p>
+<form th:if="${usuario.perfil == 'EMPRESA' and c.utilizadaEm == null}" th:action="@{/cupons/{codigo}/utilizar(codigo=${c.codigo})}" method="post" onsubmit="return confirm('Confirma a entrega desta vantagem ao aluno?');">
+<button type="submit">Confirmar utilização</button>
+</form>
+</article>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Vantagens')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<p class="sobretitulo">PARCERIAS QUE RECOMPENSAM</p>
+<div class="titulo-acoes">
+<h1 th:text="${usuario.perfil == 'EMPRESA' ? 'Minhas vantagens' : 'Seu próximo resgate'}">
+</h1>
+<a th:if="${usuario.perfil == 'EMPRESA'}" class="botao" th:href="@{/vantagens/nova}">Cadastrar vantagem</a>
+</div>
+<p th:if="${#lists.isEmpty(vantagens)}" class="vazio">Ainda não há vantagens disponíveis. As próximas conquistas começam aqui.</p>
+<div class="catalogo">
+<article class="vantagem" th:each="v : ${vantagens}">
+<img th:src="@{/vantagens/{id}/foto(id=${v.id})}" th:alt="${v.descricao}" loading="lazy">
+<div>
+<p class="sobretitulo" th:text="${v.empresa.nome}">
+</p>
+<h2 th:text="${v.descricao}">
+</h2>
+<p>
+<strong th:text="${v.custo}">
+</strong> moedas</p>
+<form th:if="${usuario.perfil == 'ALUNO'}" th:action="@{/vantagens/{id}/resgatar(id=${v.id})}" method="post" onsubmit="return confirm('Confirma o resgate e o desconto das moedas?');">
+<button type="submit">Resgatar vantagem</button>
+</form>
+<div th:if="${usuario.perfil == 'EMPRESA'}" class="acoes">
+<a th:href="@{/vantagens/{id}/editar(id=${v.id})}">Editar</a>
+<form th:action="@{/vantagens/{id}/excluir(id=${v.id})}" method="post" onsubmit="return confirm('Retirar esta vantagem do catálogo?');">
+<button class="link" type="submit">Retirar oferta</button>
+</form>
+</div>
+</div>
+</article>
+</div>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

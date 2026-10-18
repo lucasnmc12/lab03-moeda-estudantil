@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Cadastrar vantagem')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<section class="estreito amplo">
+<p class="sobretitulo">EMPRESA PARCEIRA</p>
+<h1 th:text="${edicao == true ? 'Editar vantagem' : 'Uma nova vantagem'}">
+</h1>
+<form th:action="${acao}" th:object="${form}" method="post" enctype="multipart/form-data" class="formulario">
+<div th:if="${#fields.hasAnyErrors()}" class="alerta erro" role="alert">
+<ul>
+<li th:each="e : ${#fields.allErrors()}" th:text="${e}">
+</li>
+</ul>
+</div>
+<label for="descricao">Descrição *</label>
+<textarea id="descricao" th:field="*{descricao}" rows="3" required maxlength="500">
+</textarea>
+<label for="custo">Custo em moedas *</label>
+<input id="custo" th:field="*{custo}" type="number" min="1" required>
+<label for="foto">Foto do produto <span th:if="${edicao != true}">*</span>
+</label>
+<input id="foto" name="foto" type="file" accept="image/png,image/jpeg" th:required="${edicao != true}">
+<p class="nota">PNG ou JPEG, até 2 MB. Na edição, deixe vazio para manter a foto atual.</p>
+<div class="acoes">
+<button type="submit">Salvar vantagem</button>
+<a th:href="@{/vantagens}">Voltar</a>
+</div>
+</form>
+</section>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>
