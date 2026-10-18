@@ -5,7 +5,7 @@ import org.springframework.data.repository.query.Param;
 import jakarta.persistence.LockModeType;
 import java.util.*;
 public interface NotificacaoRepository extends JpaRepository<Notificacao,Long> {
-    List<Notificacao> findTop20ByEnviadaEmIsNullOrderById();
+    List<Notificacao> findTop20ByEnviadaEmIsNullOrderByTentativasAscIdAsc();
     @Lock(LockModeType.PESSIMISTIC_WRITE) @Query("select n from Notificacao n where n.id=:id")
     Optional<Notificacao> bloquear(@Param("id") Long id);
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Extrato')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<p class="sobretitulo">SUAS MOVIMENTAÇÕES</p>
+<h1>Extrato de moedas</h1>
+<p class="saldo-linha">
+<strong th:text="${usuario.saldo}">
+</strong> moedas disponíveis</p>
+<p th:if="${#lists.isEmpty(transacoes)}" class="vazio">Seu extrato começa com o primeiro reconhecimento.</p>
+<div class="tabela" th:unless="${#lists.isEmpty(transacoes)}">
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Movimentação</th>
+<th>Moedas</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="t : ${transacoes}">
+<td th:text="${#temporals.format(t.data, 'dd/MM/yyyy HH:mm')}">
+</td>
+<td th:text="${t.descricao}">
+</td>
+<td th:text="${(t.tipo == 'RESGATE' or (t.tipo == 'ENVIO' and usuario.perfil == 'PROFESSOR') ? '−' : '+') + t.quantidade}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

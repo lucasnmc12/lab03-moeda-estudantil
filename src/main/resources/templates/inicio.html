@@ -1,8 +1,41 @@
 <!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Reconhecimento que circula')}"></head>
-<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
-<div th:replace="~{fragmentos :: mensagens}"></div>
-<section class="hero"><p class="sobretitulo">MÉRITO ESTUDANTIL</p><h1>Seu esforço.<br>Novas possibilidades.</h1><p class="intro">Professores reconhecem. Alunos conquistam. Parceiros transformam moedas em vantagens para a vida universitária.</p><div class="acoes"><a class="botao" th:href="@{/alunos/novo}">Quero participar</a><a class="botao secundario" th:href="@{/empresas/novo}">Sou uma empresa parceira</a></div><p class="nota">Já participa? <a th:href="@{/entrar}">Entre na sua conta</a>.</p></section>
-<section class="passos"><div><span>01</span><h2>Reconhecimento</h2><p>Professores recebem 1.000 moedas por semestre para reconhecer seus alunos.</p></div><div><span>02</span><h2>Conquistas</h2><p>O aluno acompanha cada reconhecimento e seu saldo no extrato.</p></div><div><span>03</span><h2>Vantagens</h2><p>Moedas viram cupons de produtos e descontos dos parceiros.</p></div></section>
-</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>
+<head th:replace="~{fragmentos :: cabecalho('Reconhecimento que circula')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<section class="hero">
+<p class="sobretitulo">MÉRITO ESTUDANTIL</p>
+<h1>Seu esforço.<br>Novas possibilidades.</h1>
+<p class="intro">Professores reconhecem. Alunos conquistam. Parceiros transformam moedas em vantagens para a vida universitária.</p>
+<div class="acoes">
+<a class="botao" th:href="@{/alunos/novo}">Quero participar</a>
+<a class="botao secundario" th:href="@{/empresas/novo}">Sou uma empresa parceira</a>
+</div>
+<p class="nota">Já participa? <a th:href="@{/entrar}">Entre na sua conta</a>.</p>
+</section>
+<section class="passos">
+<div>
+<span>01</span>
+<h2>Reconhecimento</h2>
+<p>Professores recebem 1.000 moedas por semestre para reconhecer seus alunos.</p>
+</div>
+<div>
+<span>02</span>
+<h2>Conquistas</h2>
+<p>O aluno acompanha cada reconhecimento e seu saldo no extrato.</p>
+</div>
+<div>
+<span>03</span>
+<h2>Vantagens</h2>
+<p>Moedas viram cupons de produtos e descontos dos parceiros.</p>
+</div>
+</section>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

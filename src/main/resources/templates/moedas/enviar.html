@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Reconhecer aluno')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<section class="estreito amplo">
+<p class="sobretitulo">RECONHECIMENTO</p>
+<h1>Valorize uma conquista</h1>
+<p>Saldo disponível: <strong th:text="${usuario.saldo}">
+</strong> moedas.</p>
+<form th:action="@{/moedas/enviar}" th:object="${form}" method="post" class="formulario">
+<div th:if="${#fields.hasAnyErrors()}" class="alerta erro" role="alert">
+<ul>
+<li th:each="e : ${#fields.allErrors()}" th:text="${e}">
+</li>
+</ul>
+</div>
+<label for="alunoId">Aluno *</label>
+<select id="alunoId" th:field="*{alunoId}" required>
+<option value="">Selecione um aluno</option>
+<option th:each="a : ${alunos}" th:value="${a.id}" th:text="${a.nome + ' · ' + a.instituicao.nome}">
+</option>
+</select>
+<label for="quantidade">Quantidade de moedas *</label>
+<input id="quantidade" th:field="*{quantidade}" type="number" min="1" required>
+<label for="motivo">Motivo do reconhecimento *</label>
+<textarea id="motivo" th:field="*{motivo}" rows="4" required maxlength="1000" placeholder="Conte o que este aluno fez de especial.">
+</textarea>
+<button type="submit">Enviar reconhecimento</button>
+</form>
+</section>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

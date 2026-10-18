@@ -1,7 +1,35 @@
 <!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Meu painel')}"></head>
-<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
-<div th:replace="~{fragmentos :: mensagens}"></div>
-<p class="sobretitulo">MINHA CONTA</p><h1>Olá, <span th:text="${usuario.nome}"></span>.</h1><p>Seu cadastro já está disponível para consulta e atualização.</p><a th:if="${usuario.perfil == 'ALUNO'}" class="botao" th:href="@{/alunos}">Consultar meu cadastro</a><a th:if="${usuario.perfil == 'EMPRESA'}" class="botao" th:href="@{/empresas}">Consultar meu cadastro</a>
-</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>
+<head th:replace="~{fragmentos :: cabecalho('Meu painel')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<p class="sobretitulo" th:text="${usuario.perfil == 'EMPRESA' ? 'EMPRESA PARCEIRA' : usuario.perfil}">PERFIL</p>
+<h1>Olá, <span th:text="${usuario.nome}">nome</span>.</h1>
+<section th:if="${usuario.perfil != 'EMPRESA'}" class="saldo">
+<p>Seu saldo disponível</p>
+<strong th:text="${usuario.saldo}">0</strong>
+<span>moedas</span>
+<p th:if="${usuario.perfil == 'PROFESSOR'}">O saldo restante acumula entre semestres.</p>
+<div class="acoes">
+<a th:if="${usuario.perfil == 'PROFESSOR'}" class="botao" th:href="@{/moedas/enviar}">Reconhecer um aluno</a>
+<a th:if="${usuario.perfil == 'ALUNO'}" class="botao" th:href="@{/vantagens}">Explorar vantagens</a>
+<a th:href="@{/extrato}">Ver extrato completo</a>
+</div>
+</section>
+<section th:if="${usuario.perfil == 'EMPRESA'}" class="saldo">
+<h2>Uma parceria que faz parte da conquista.</h2>
+<p>Cadastre suas vantagens e confira os cupons apresentados pelos alunos.</p>
+<div class="acoes">
+<a class="botao" th:href="@{/vantagens/nova}">Cadastrar vantagem</a>
+<a th:href="@{/cupons}">Conferir cupons</a>
+</div>
+</section>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>

@@ -1,12 +1,78 @@
 <!doctype html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Cadastro')}"></head>
-<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
-<div th:replace="~{fragmentos :: mensagens}"></div>
-<section class="estreito amplo"><p class="sobretitulo" th:text="${aluno ? 'ALUNO' : 'EMPRESA PARCEIRA'}"></p><h1 th:text="${edicao ? 'Editar cadastro' : 'Comece por aqui'}"></h1><p>Os campos marcados com * são obrigatórios.</p>
-<form th:action="${acao}" th:object="${form}" method="post" class="formulario"><div th:if="${#fields.hasAnyErrors()}" class="alerta erro" role="alert"><p>Confira os dados informados:</p><ul><li th:each="e : ${#fields.allErrors()}" th:text="${e}"></li></ul></div>
-<label for="nome">Nome *</label><input id="nome" th:field="*{nome}" required maxlength="120" autocomplete="name">
-<div th:if="${!edicao}"><label for="email">Email *</label><input id="email" th:field="*{email}" type="email" required maxlength="180" autocomplete="email"><label for="senha">Senha * <small>8 a 60 caracteres</small></label><input id="senha" name="senha" type="password" required minlength="8" maxlength="60" autocomplete="new-password"></div>
-<div th:if="${aluno}"><div th:if="${!edicao}"><label for="cpf">CPF *</label><input id="cpf" th:field="*{cpf}" required maxlength="14" inputmode="numeric" placeholder="000.000.000-00"></div><label for="rg">RG *</label><input id="rg" th:field="*{rg}" required maxlength="30"><label for="endereco">Endereço *</label><input id="endereco" th:field="*{endereco}" required maxlength="250" autocomplete="street-address"><label for="curso">Curso *</label><input id="curso" th:field="*{curso}" required maxlength="120"><label for="instituicaoId">Instituição de ensino *</label><select id="instituicaoId" th:field="*{instituicaoId}" required><option value="">Selecione uma instituição</option><option th:each="i : ${instituicoes}" th:value="${i.id}" th:text="${i.nome}"></option></select><p th:if="${#lists.isEmpty(instituicoes)}" class="alerta">Nenhuma instituição disponível. A instituição precisa ser pré-cadastrada pelo responsável pela instalação.</p></div>
-<p th:if="${edicao}" class="nota">Email e CPF identificam sua conta e permanecem neste cadastro.</p><div class="acoes"><button type="submit" th:text="${edicao ? 'Salvar alterações' : 'Criar minha conta'}"></button><a th:href="@{/painel}">Voltar</a></div></form></section>
-</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>
+<head th:replace="~{fragmentos :: cabecalho('Cadastro')}">
+</head>
+<body>
+<header th:replace="~{fragmentos :: navegacao}">
+</header>
+<main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}">
+</div>
+<section class="estreito amplo">
+<p class="sobretitulo" th:text="${aluno ? 'ALUNO' : 'EMPRESA PARCEIRA'}">
+</p>
+<h1 th:text="${edicao ? 'Editar cadastro' : 'Comece por aqui'}">
+</h1>
+<p>Os campos marcados com * são obrigatórios.</p>
+<form th:action="${acao}" th:object="${form}" method="post" class="formulario">
+<div th:if="${#fields.hasAnyErrors()}" class="alerta erro" role="alert">
+<p>Confira os campos destacados e os dados informados:</p>
+<ul>
+<li th:each="e : ${#fields.allErrors()}" th:text="${e}">
+</li>
+</ul>
+</div>
+<label for="nome">Nome *</label>
+<input id="nome" th:classappend="${#fields.hasErrors('nome') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('nome')}" th:field="*{nome}" required maxlength="120" autocomplete="name">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+</p>
+<div th:if="${!edicao}">
+<label for="email">Email *</label>
+<input id="email" th:classappend="${#fields.hasErrors('email') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('email')}" th:field="*{email}" type="email" required maxlength="180" autocomplete="email">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+</p>
+<label for="senha">Senha * <small>8 a 60 caracteres</small>
+</label>
+<input id="senha" name="senha" type="password" required minlength="8" maxlength="60" autocomplete="new-password">
+</div>
+<div th:if="${aluno}">
+<div th:if="${!edicao}">
+<label for="cpf">CPF *</label>
+<input id="cpf" th:classappend="${#fields.hasErrors('cpf') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('cpf')}" th:field="*{cpf}" required maxlength="14" inputmode="numeric" placeholder="000.000.000-00">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}">
+</p>
+</div>
+<label for="rg">RG *</label>
+<input id="rg" th:classappend="${#fields.hasErrors('rg') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('rg')}" th:field="*{rg}" required maxlength="30">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}">
+</p>
+<label for="endereco">Endereço *</label>
+<input id="endereco" th:classappend="${#fields.hasErrors('endereco') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('endereco')}" th:field="*{endereco}" required maxlength="250" autocomplete="street-address">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}">
+</p>
+<label for="curso">Curso *</label>
+<input id="curso" th:classappend="${#fields.hasErrors('curso') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('curso')}" th:field="*{curso}" required maxlength="120">
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('curso')}" th:errors="*{curso}">
+</p>
+<label for="instituicaoId">Instituição de ensino *</label>
+<select id="instituicaoId" th:classappend="${#fields.hasErrors('instituicaoId') ? 'invalido' : ''}" th:attr="aria-invalid=${#fields.hasErrors('instituicaoId')}" th:field="*{instituicaoId}" required>
+<option value="">Selecione uma instituição</option>
+<option th:each="i : ${instituicoes}" th:value="${i.id}" th:text="${i.nome}">
+</option>
+</select>
+<p class="campo-erro" role="alert" th:if="${#fields.hasErrors('instituicaoId')}" th:errors="*{instituicaoId}">
+</p>
+<p th:if="${#lists.isEmpty(instituicoes)}" class="alerta">Nenhuma instituição disponível. A instituição precisa ser pré-cadastrada pelo responsável pela instalação.</p>
+</div>
+<p th:if="${edicao}" class="nota">Email e CPF identificam sua conta e permanecem neste cadastro.</p>
+<div class="acoes">
+<button type="submit" th:text="${edicao ? 'Salvar alterações' : 'Criar minha conta'}">
+</button>
+<a th:href="@{/painel}">Voltar</a>
+</div>
+</form>
+</section>
+</main>
+<footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer>
+</body>
+</html>
