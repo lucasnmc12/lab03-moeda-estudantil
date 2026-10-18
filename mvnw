@@ -10,5 +10,10 @@ if [ ! -x "$MAVEN_DIR/bin/mvn" ]; then
   tar -xzf "$ARCHIVE" -C "$BASE_DIR/.mvn"
   rm -f "$ARCHIVE"
 fi
-# JAVA_HOME deve apontar para um JDK 21+. PATH também pode fornecer o Java.
+# Preserva JAVA_HOME explícito e reconhece o JDK 21 já instalado pelo Homebrew.
+if [ -z "${JAVA_HOME:-}" ] && [ -x /opt/homebrew/opt/openjdk@21/bin/java ]; then
+  JAVA_HOME=/opt/homebrew/opt/openjdk@21
+  export JAVA_HOME
+fi
+# Em outros ambientes, Maven usa JAVA_HOME ou o Java disponível no PATH.
 exec "$MAVEN_DIR/bin/mvn" "$@"

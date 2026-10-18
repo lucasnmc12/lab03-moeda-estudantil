@@ -1,0 +1,49 @@
+{
+  "ambiente": "cópia temporária isolada, H2 de teste, sem dados reais",
+  "mutacoes": [
+    {
+      "mutacao": "dono-cadastro",
+      "teste": "CadastroAcessoTest#contaAlheiaEPapelIncorretoSaoNegados",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    },
+    {
+      "mutacao": "papel-servico",
+      "teste": "SegurancaTest#rotasPrivadasPapeisECsrfSaoProtegidos",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    },
+    {
+      "mutacao": "dono-cupom",
+      "teste": "VantagemTest#somenteDonoConfirmaCupomUmaVezEHistoricoSobreviveRemocao",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    },
+    {
+      "mutacao": "csrf",
+      "teste": "CadastroAcessoTest#loginRealECsrfProtegemCadastro",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    },
+    {
+      "mutacao": "conta-ativa",
+      "teste": "SegurancaTest#contaDesativadaNaoEntraNemUsaSessaoAnterior",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    },
+    {
+      "mutacao": "dono-vantagem",
+      "teste": "VantagemTest#rejeitaFotoFalsaCustoInvalidoEVantagemAlheia",
+      "detectada": true,
+      "exit_code": 1,
+      "restaurada": true
+    }
+  ],
+  "suite_restaurada_exit_code": 0,
+  "codigo_principal_alterado": false
+}

@@ -45,6 +45,7 @@ abstract class Transacao {
  -data: LocalDateTime
  -quantidade: int
  +getDescricao(): String
+ +getTipo(): String
 }
 class EnvioMoeda {
  -motivo: String

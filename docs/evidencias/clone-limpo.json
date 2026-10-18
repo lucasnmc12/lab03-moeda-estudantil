@@ -1,0 +1,9 @@
+{
+  "commit": "7f516e8bdf247592d1eadc3a14149f588863964b",
+  "origem": "clone limpo do GitHub privado",
+  "comando": "./mvnw clean verify",
+  "testes": 25,
+  "falhas": 0,
+  "erros": 0,
+  "ignorados": 0
+}

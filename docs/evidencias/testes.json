@@ -1,0 +1,56 @@
+{
+  "comando": "./mvnw clean verify",
+  "ambiente": "JDK 21, H2 isolado e SMTP em loopback",
+  "suites": [
+    {
+      "suite": "br.edu.pucminas.moeda.CadastroAcessoTest",
+      "testes": 2,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.CadastroMvcTest",
+      "testes": 4,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.MoedaServiceTest",
+      "testes": 5,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.NotificacaoSmtpTest",
+      "testes": 2,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.PersistenciaTest",
+      "testes": 1,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.SegurancaTest",
+      "testes": 5,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.VantagemTest",
+      "testes": 6,
+      "falhas": 0,
+      "erros": 0,
+      "ignorados": 0
+    }
+  ],
+  "total": 25
+}

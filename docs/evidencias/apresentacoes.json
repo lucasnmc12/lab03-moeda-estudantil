@@ -1,0 +1,24 @@
+{
+  "verificado_em": "2026-10-17T22:35:16.938125-03:00",
+  "arquivos": [
+    {
+      "arquivo": "docs/apresentacao/arquitetura.pptx",
+      "sha256": "a91b4407ae8769a0bd74de4d6195d0f67ec0a4a5121096375a2bfa43ee1c924e",
+      "slides": 9,
+      "fonte": "Arial",
+      "diagramas_e_tabelas_editaveis": true,
+      "integridade_layout_reimportacao_validados": true,
+      "revisao_visual_dos_slides": true
+    },
+    {
+      "arquivo": "docs/apresentacao/tutorial-tecnologias.pptx",
+      "sha256": "5b1f94e78829678eee29467fb45499d6ef386103764b69e1751088be84008b9b",
+      "slides": 9,
+      "fonte": "Arial",
+      "diagramas_e_tabelas_editaveis": true,
+      "integridade_layout_reimportacao_validados": true,
+      "revisao_visual_dos_slides": true
+    }
+  ],
+  "ensaio_humano_cronometrado": "pendente"
+}
