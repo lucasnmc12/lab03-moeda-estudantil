@@ -1,0 +1,37 @@
+@startuml componentes_moeda
+skinparam shadowing false
+left to right direction
+actor "Aluno / Professor / Empresa" as Pessoa
+component "Navegador\nHTML e CSS" as Browser
+package "Aplicação Spring Boot (MVC)" {
+ component "Spring Security\nSessão, BCrypt e CSRF" as Security
+ component "Controllers MVC\nFormulários e navegação" as MVC
+ component "Thymeleaf\nTemplates HTML" as Views
+ component "CadastroService\nContas e isolamento" as Cadastro
+ component "MoedaService\nCrédito, envio e extrato" as Moedas
+ component "VantagemService\nOfertas, resgate e cupom" as Vantagens
+ component "Spring Data JPA / Hibernate\nRepositórios e transações" as ORM
+ component "NotificacaoService\nCaixa de saída e tentativas SMTP" as Email
+ component "Rotinas agendadas\nCrédito semestral e entrega de emails" as Jobs
+}
+database "H2 em arquivo\ndados/moeda" as DB
+cloud "Servidor SMTP\nLocal para demonstração\nConfigurável para operação" as SMTP
+Pessoa --> Browser
+Browser --> Security : HTTP local
+Security --> MVC
+MVC --> Views
+Views --> Browser
+MVC --> Cadastro
+MVC --> Moedas
+MVC --> Vantagens
+Cadastro --> ORM
+Moedas --> ORM
+Vantagens --> ORM
+Moedas --> Email
+Vantagens --> Email
+Email --> ORM
+ORM --> DB
+Jobs --> Moedas
+Jobs --> Email
+Email --> SMTP
+@enduml

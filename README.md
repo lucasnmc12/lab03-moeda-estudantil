@@ -14,7 +14,7 @@ João Paulo Aramuni — referência indicada no material da disciplina.
 
 ## Repositório
 
-Projeto independente dos laboratórios anteriores. Publicação no GitHub em preparação.
+[lucasnmc12/lab03-moeda-estudantil](https://github.com/lucasnmc12/lab03-moeda-estudantil) — repositório privado independente. O professor precisa receber acesso antes da avaliação.
 
 ## Histórias de usuário
 
@@ -23,7 +23,9 @@ Projeto independente dos laboratórios anteriores. Publicação no GitHub em pre
 ## Diagramas
 
 - [Casos de uso](docs/diagramas/casos-de-uso.puml)
-- Classes, componentes e modelo ER serão incorporados nas etapas correspondentes.
+- [Classes](docs/diagramas/diagrama-de-classes.puml)
+- [Componentes](docs/diagramas/diagrama-de-componentes.puml)
+- Modelo ER será incorporado na Sprint 2.
 
 ## Tecnologias
 

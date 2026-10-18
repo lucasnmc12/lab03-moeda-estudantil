@@ -1,0 +1,94 @@
+@startuml classes_moeda
+hide empty members
+skinparam shadowing false
+abstract class Usuario {
+ -id: Long
+ -nome: String
+ -email: String
+ -senhaHash: String
+ -ativo: boolean
+ +desativar(): void
+ +getPerfil(): String
+}
+class InstituicaoEnsino {
+ -id: Long
+ -nome: String
+}
+class Aluno {
+ -cpf: String
+ -rg: String
+ -endereco: String
+ -curso: String
+ -saldo: int
+ +creditar(quantidade: int): void
+ +debitar(quantidade: int): void
+}
+class Professor {
+ -cpf: String
+ -departamento: String
+ -saldo: int
+ +creditar(quantidade: int): void
+ +debitar(quantidade: int): void
+}
+class EmpresaParceira
+class Vantagem {
+ -id: Long
+ -descricao: String
+ -foto: byte[]
+ -fotoTipo: String
+ -custo: int
+ -ativa: boolean
+ +desativar(): void
+}
+abstract class Transacao {
+ -id: Long
+ -data: LocalDateTime
+ -quantidade: int
+ +getDescricao(): String
+}
+class EnvioMoeda {
+ -motivo: String
+}
+class TrocaVantagem {
+ -codigo: String
+ -descricaoVantagem: String
+ -utilizadaEm: LocalDateTime
+ +confirmarUso(): void
+}
+class CreditoSemestral {
+ -semestre: String
+}
+class Notificacao {
+ -id: Long
+ -destinatario: String
+ -assunto: String
+ -texto: String
+ -enviadaEm: LocalDateTime
+ -tentativas: int
+ +registrarEnvio(): void
+ +registrarFalha(): void
+}
+Usuario <|-- Aluno
+Usuario <|-- Professor
+Usuario <|-- EmpresaParceira
+InstituicaoEnsino "1" -- "0..*" Aluno
+InstituicaoEnsino "1" -- "0..*" Professor
+EmpresaParceira "1" -- "0..*" Vantagem
+Transacao <|-- EnvioMoeda
+Transacao <|-- TrocaVantagem
+Transacao <|-- CreditoSemestral
+Professor "1" -- "0..*" EnvioMoeda : envia
+Aluno "1" -- "0..*" EnvioMoeda : recebe
+Aluno "1" -- "0..*" TrocaVantagem
+Vantagem "1" -- "0..*" TrocaVantagem
+Professor "1" -- "0..*" CreditoSemestral
+Transacao "1" -- "0..*" Notificacao
+note bottom of CreditoSemestral
+1.000 por semestre, acumuláveis.
+Um crédito por professor e semestre.
+end note
+note bottom of TrocaVantagem
+Preserva custo e descrição do momento do resgate.
+Código único, confirmação somente pelo parceiro dono.
+end note
+@enduml
