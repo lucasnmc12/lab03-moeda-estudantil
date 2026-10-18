@@ -1,0 +1,47 @@
+@startuml casos_de_uso
+left to right direction
+skinparam shadowing false
+actor "Usuário" as Usuario
+actor Aluno
+actor Professor
+actor "Empresa parceira" as Empresa
+Aluno --|> Usuario
+Professor --|> Usuario
+Empresa --|> Usuario
+rectangle "Sistema de Moeda Estudantil" {
+  usecase "Realizar login" as UC01
+  usecase "Manter cadastro de aluno" as UC02
+  usecase "Manter cadastro de empresa" as UC03
+  usecase "Enviar moedas" as UC04
+  usecase "Consultar extrato" as UC05
+  usecase "Manter vantagens" as UC06
+  usecase "Resgatar vantagem" as UC07
+  usecase "Conferir e utilizar cupom" as UC08
+}
+Usuario --> UC01
+Aluno --> UC02
+Empresa --> UC03
+Professor --> UC04
+Aluno --> UC05
+Professor --> UC05
+Empresa --> UC06
+Aluno --> UC07
+Empresa --> UC08
+note bottom of UC02
+Cadastro público. Consulta, alteração e remoção
+exigem autenticação e conta própria.
+end note
+note bottom of UC04
+Pré-condição: professor autenticado.
+Saldo suficiente e motivo são regras do envio.
+O sistema notifica o aluno por email.
+end note
+note bottom of UC07
+Pré-condição: aluno autenticado.
+O resgate emite um código e notifica
+aluno e parceiro por email.
+end note
+note bottom of UC06
+Exige empresa autenticada e vantagem própria.
+end note
+@enduml
