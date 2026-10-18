@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Minha conta')}"></head>
+<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}"></div>
+<p class="sobretitulo">CADASTRO</p><h1>Minha conta</h1><p>Seus dados ficam disponíveis apenas para você.</p><div class="tabela"><table><thead><tr><th>Nome</th><th>Email</th><th>Ação</th></tr></thead><tbody><tr th:each="c : ${contas}"><td th:text="${c.nome}"></td><td th:text="${c.email}"></td><td><a th:href="${base + '/' + c.id}">Consultar cadastro</a></td></tr></tbody></table></div>
+</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>

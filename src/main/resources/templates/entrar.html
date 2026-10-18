@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Entrar')}"></head>
+<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}"></div>
+<section class="estreito"><p class="sobretitulo">BEM-VINDO DE VOLTA</p><h1>Entre na sua conta</h1><p>Alunos, professores e empresas usam email e senha.</p>
+<p th:if="${param.erro}" class="alerta erro" role="alert">Email ou senha incorretos, ou conta desativada.</p><p th:if="${param.saiu}" class="alerta sucesso">Sessão encerrada.</p><p th:if="${param.removida}" class="alerta sucesso">Conta removida. O histórico de transações foi preservado.</p>
+<form th:action="@{/entrar}" method="post" class="formulario"><label for="username">Email</label><input id="username" name="username" type="email" autocomplete="username" required maxlength="180"><label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" required><button type="submit">Entrar</button></form><p class="nota">Nova conta: <a th:href="@{/alunos/novo}">aluno</a> ou <a th:href="@{/empresas/novo}">empresa parceira</a>.</p></section>
+</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>

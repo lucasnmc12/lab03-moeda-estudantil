@@ -1,0 +1,8 @@
+<!doctype html><html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head th:fragment="cabecalho(titulo)">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title th:text="${titulo} + ' · Moeda Estudantil'">Moeda Estudantil</title><link rel="stylesheet" th:href="@{/css/app.css}"></head><body>
+<header th:fragment="navegacao"><a class="marca" th:href="@{/}"><span class="simbolo">m.</span> Moeda Estudantil</a>
+<nav aria-label="Navegação principal"><a th:if="${usuario != null}" th:href="@{/painel}">Painel</a>
+<a th:if="${usuario != null and usuario.perfil == 'ALUNO'}" th:href="@{/alunos}">Minha conta</a><a th:if="${usuario != null and usuario.perfil == 'EMPRESA'}" th:href="@{/empresas}">Minha conta</a>
+<form th:if="${usuario != null}" th:action="@{/sair}" method="post"><button class="link" type="submit">Sair</button></form><a th:if="${usuario == null}" th:href="@{/entrar}">Entrar</a></nav></header>
+<div th:fragment="mensagens"><p th:if="${sucesso}" class="alerta sucesso" role="status" th:text="${sucesso}"></p><p th:if="${erro}" class="alerta erro" role="alert" th:text="${erro}"></p></div>
+</body></html>

@@ -10,7 +10,7 @@ O sistema reconhece o mérito estudantil por meio de moedas virtuais. Professore
 
 ## Professor responsável
 
-João Paulo Aramuni — referência indicada no material da disciplina.
+Material de referência: João Paulo Aramuni. Acesso ao repositório deve ser concedido ao professor responsável antes da avaliação.
 
 ## Repositório
 
@@ -25,7 +25,8 @@ João Paulo Aramuni — referência indicada no material da disciplina.
 - [Casos de uso](docs/diagramas/casos-de-uso.puml)
 - [Classes](docs/diagramas/diagrama-de-classes.puml)
 - [Componentes](docs/diagramas/diagrama-de-componentes.puml)
-- Modelo ER será incorporado na Sprint 2.
+- [Modelo entidade-relacionamento](docs/diagramas/modelo-er.puml)
+- [Estratégia de persistência](docs/PERSISTENCIA.md)
 
 ## Tecnologias
 
@@ -38,6 +39,24 @@ Java 21, Spring Boot, Spring MVC, Thymeleaf, Spring Security, Spring Data JPA/Hi
 - Sprint 3: CRUDs finais, fluxo de moedas e vantagens, slides de arquitetura e tutorial.
 
 [Enunciado](docs/enunciado.md) e [roteiros originais](docs/sprints/).
+
+## Instalação e execução
+
+Requer JDK 21 e acesso à internet para baixar Maven/dependências na primeira execução.
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=demo
+```
+
+Abra [localhost:8080](http://localhost:8080). O perfil `demo` pré-cadastra uma instituição fictícia e o professor `professor@demo.local`, com senha `Professor123!`. Alunos e empresas criam suas próprias contas pela interface. Use esses dados apenas para demonstração local.
+
+Os dados ficam em `dados/moeda.mv.db` e sobrevivem ao reinício. Sem o perfil `demo`, a instalação começa sem cadastros demonstrativos.
+
+## Testes
+
+```bash
+./mvnw clean verify
+```
 
 ## Créditos
 

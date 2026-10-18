@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Meu cadastro')}"></head>
+<body><header th:replace="~{fragmentos :: navegacao}"></header><main id="conteudo">
+<div th:replace="~{fragmentos :: mensagens}"></div>
+<p class="sobretitulo">MINHA CONTA</p><h1 th:text="${conta.nome}"></h1><dl><dt>Email</dt><dd th:text="${conta.email}"></dd><th:block th:if="${conta.perfil == 'ALUNO'}"><dt>CPF</dt><dd th:text="${conta.cpf}"></dd><dt>RG</dt><dd th:text="${conta.rg}"></dd><dt>Endereço</dt><dd th:text="${conta.endereco}"></dd><dt>Curso</dt><dd th:text="${conta.curso}"></dd><dt>Instituição</dt><dd th:text="${conta.instituicao.nome}"></dd></th:block></dl><a class="botao" th:href="${base + '/' + conta.id + '/editar'}">Editar cadastro</a>
+<section class="remocao"><h2>Remover minha conta</h2><p>O acesso será encerrado. Transações e cupons já emitidos permanecem no histórico para conferência.</p><form th:action="${base + '/' + conta.id + '/excluir'}" method="post" onsubmit="return confirm('Confirma a remoção da sua conta? Seu acesso será encerrado.');"><button class="perigo" type="submit">Remover minha conta</button></form></section>
+</main><footer>Moeda Estudantil · Laboratório 03 · Lucas Nogueira</footer></body></html>
