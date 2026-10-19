@@ -2,13 +2,22 @@
 
 # Sistema de Moeda Estudantil
 
-Release 1 do Laboratório 03 de Desenvolvimento de Software. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas.
+Projeto iniciado na Release 1 do Laboratório 03 e continuado na **Sprint 1 da Release 2 (Lab04S01)**, na branch `lab04-sprint1`. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas. Os registros e as tags do Lab03 foram preservados.
 
-**Autor:** Lucas Nogueira. **Repositório:** [lucasnmc12/lab03-moeda-estudantil](https://github.com/lucasnmc12/lab03-moeda-estudantil), privado e independente dos laboratórios anteriores.
+**Autor:** Lucas Nogueira. **Repositório:** [lucasnmc12/lab03-moeda-estudantil](https://github.com/lucasnmc12/lab03-moeda-estudantil), independente dos laboratórios anteriores, com a continuação do Lab04 na mesma base.
 
-## Status do projeto
+## Continuação — Laboratório 04, Sprint 1
 
-Implementação local verificada. Os artefatos das três sprints estão organizados no repositório. Apresentação em aula, ensaio cronometrado, feedback específico do professor e entrega no Canvas dependem do aluno. O professor precisa receber acesso ao repositório privado.
+Envio de moedas e extratos foram reaproveitados da Release 1. Esta sprint acrescenta **dois templates de email em arquivos separados**: confirmação de envio para o professor e aviso de recebimento para o aluno. As duas notificações são persistidas junto à movimentação e enviadas pelo worker SMTP existente. A mensagem do formulário e o diagrama de componentes foram atualizados.
+
+- [Escopo e critérios](docs/lab04/sprint1/PLANO.md), [verificação da entrega](docs/lab04/sprint1/VERIFICACAO.md) e [roteiro de demonstração](docs/lab04/sprint1/DEMONSTRACAO.md).
+- [Contribuições de Lucas](docs/lab04/contribuicoes/lucas-nogueira/sprint1.md), [enunciado](docs/lab04/enunciado.txt) e [roteiro original](docs/lab04/sprint1/roteiro-original.txt).
+- As Sprints 2 e 3 do Lab04 não fazem parte desta entrega. Vantagens e cupons presentes no código foram herdados do Lab03.
+- Demonstração local verificada; apresentação em aula ou vídeo e entrega no Canvas continuam a cargo do aluno. A branch será integrada à `main` posteriormente.
+
+## Status da Release 1
+
+Implementação local verificada. Os artefatos das três sprints estão organizados no repositório. Apresentação em aula, ensaio cronometrado, feedback específico do professor e entrega no Canvas dependem do aluno. O acesso do professor ao repositório deve ser conferido antes da entrega.
 
 ## Índice
 
@@ -25,7 +34,7 @@ Implementação local verificada. Os artefatos das três sprints estão organiza
 - Cadastro, consulta, edição e remoção de conta própria para aluno e empresa parceira.
 - Instituições e professores pré-cadastrados, login por email e senha nos três perfis.
 - Crédito de 1.000 moedas por professor a cada semestre, acumulável e sem duplicação no mesmo semestre.
-- Envio de moedas com motivo obrigatório, saldo suficiente e notificação por email.
+- Envio de moedas com motivo obrigatório, saldo suficiente e emails distintos de confirmação ao professor e recebimento ao aluno.
 - Extrato privado de professor e aluno com saldo e movimentações.
 - Vantagens com descrição, foto PNG/JPEG de até 2 MB e custo positivo.
 - Resgate com débito de saldo, cupom de código único e email equivalente ao aluno e ao parceiro.
@@ -143,7 +152,7 @@ Imagens de uma execução local com dados fictícios. O professor enviou 120 moe
 ./mvnw clean verify
 ```
 
-25 testes cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados e limites](docs/BUILD.md).
+29 testes na branch `lab04-sprint1` cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados da Release 1](docs/BUILD.md) e [verificação da Lab04S01](docs/lab04/sprint1/VERIFICACAO.md).
 
 ## Apresentações
 

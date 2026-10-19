@@ -11,6 +11,7 @@ package "Aplicação Spring Boot (MVC)" {
  component "MoedaService\nCrédito, envio e extrato" as Moedas
  component "VantagemService\nOfertas, resgate e cupom" as Vantagens
  component "Spring Data JPA / Hibernate\nRepositórios e transações" as ORM
+ component "EmailReconhecimento\nTemplates TEXT: professor e aluno" as TemplatesEmail
  component "NotificacaoService\nCaixa de saída e tentativas SMTP" as Email
  component "Rotinas agendadas\nCrédito semestral e entrega de emails" as Jobs
 }
@@ -27,6 +28,7 @@ MVC --> Vantagens
 Cadastro --> ORM
 Moedas --> ORM
 Vantagens --> ORM
+Moedas --> TemplatesEmail
 Moedas --> Email
 Vantagens --> Email
 Email --> ORM

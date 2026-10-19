@@ -15,10 +15,11 @@ public class MoedaService {
     private final TrocaVantagemRepository trocas;
     private final CreditoSemestralRepository creditos;
     private final NotificacaoRepository notificacoes;
+    private final EmailReconhecimento emails;
     public MoedaService(AcessoService acesso, ProfessorRepository professores,
-        EnvioMoedaRepository envios, TrocaVantagemRepository trocas, CreditoSemestralRepository creditos, NotificacaoRepository notificacoes) {
+        EnvioMoedaRepository envios, TrocaVantagemRepository trocas, CreditoSemestralRepository creditos, NotificacaoRepository notificacoes, EmailReconhecimento emails) {
         this.acesso=acesso; this.professores=professores; this.envios=envios;
-        this.trocas=trocas; this.creditos=creditos; this.notificacoes=notificacoes;
+        this.trocas=trocas; this.creditos=creditos; this.notificacoes=notificacoes; this.emails=emails;
     }
     public void creditarSemestre(LocalDate data) {
         String semestre=data.getYear()+"-"+(data.getMonthValue()<=6?"1":"2");
@@ -37,8 +38,10 @@ public class MoedaService {
         if (!(destino instanceof Aluno aluno)) throw new IllegalArgumentException("Selecione um aluno ativo.");
         professor.debitar(quantidade); aluno.creditar(quantidade);
         EnvioMoeda envio=envios.save(new EnvioMoeda(professor,aluno,quantidade,motivo.strip()));
+        notificacoes.save(new Notificacao(envio,professor.getEmail(),"Confirmação de envio de moedas",
+            emails.confirmacaoProfessor(envio)));
         notificacoes.save(new Notificacao(envio,aluno.getEmail(),"Você recebeu moedas estudantis",
-            professor.getNome()+" enviou "+quantidade+" moedas. Motivo: "+motivo.strip()));
+            emails.recebimentoAluno(envio)));
         return envio;
     }
     @Transactional(readOnly=true)
