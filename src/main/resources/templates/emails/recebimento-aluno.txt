@@ -1,0 +1,10 @@
+Olá, [(${aluno})]!
+
+Você recebeu [(${quantidade})] moedas de [(${professor})].
+
+Motivo do reconhecimento:
+[(${motivo})]
+
+Parabéns pelo reconhecimento! Consulte seu extrato para acompanhar as moedas recebidas.
+
+Sistema de Moeda Estudantil

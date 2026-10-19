@@ -1,0 +1,90 @@
+{
+  "executed_at_utc": "2026-10-19T14:28:04.070410+00:00",
+  "command": "./mvnw clean verify",
+  "environment": "JDK 21; H2 e SMTP reais locais; execução com sockets de loopback permitidos",
+  "baseline": {
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "requirement_before_change": {
+    "test": "MoedaServiceTest.envioDebitaCreditaRegistraMotivoEDuasNotificacoes",
+    "result": "Falhou como esperado: expected 2 but was 1"
+  },
+  "totals": {
+    "tests": 29,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "suite": "br.edu.pucminas.moeda.CadastroAcessoTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.CadastroMvcTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.MoedaAtomicidadeTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.MoedaServiceTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.MoedaSprint1MvcTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.NotificacaoSmtpTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.PersistenciaTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.SegurancaTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "br.edu.pucminas.moeda.VantagemTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "limitations": [
+    "SMTP externo e apresentação em aula não verificados.",
+    "O teste de atomicidade simula apenas a falha do renderizador; o rollback é verificado no banco real."
+  ]
+}
