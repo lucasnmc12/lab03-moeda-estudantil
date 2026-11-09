@@ -1,6 +1,23 @@
 # Verificação — Lab04S01
 
-## Resultado
+## Revisão de 09/11/2026 após o PR #1
+
+O PR #1 foi integrado à `main` em 09/11/2026, no commit `f9ff71c`. A revisão posterior reforçou a cobertura sem alterar regras da aplicação ou dependências. `./mvnw clean verify` passou com **31 testes, zero falhas, erros ou ignorados**: os 29 cenários anteriores e dois novos em `ExtratoMvcTest`. [Resultado extraído dos relatórios Surefire](evidencias/testes-revisao-2026-11-09.json).
+
+| Critério reforçado | Verificação executada |
+|---|---|
+| Extrato misto do aluno | Login real e GET `/extrato` após dois recebimentos e um resgate: saldo 110, sinais +30/−40/+120, datas e descrições conferidos linha a linha |
+| Ordem do histórico | Datas fixas no banco de teste em ordem diferente da criação dos registros; conferência dos IDs no serviço e da ordem decrescente na página |
+| Isolamento de alunos | Outro aluno com recebimento exclusivo de 99 moedas; cada página contém exatamente as linhas do seu titular |
+| Isolamento de professores | Dois professores com créditos e envios próprios; cada extrato contém somente seu crédito de 1.000 e seu envio, com saldos 900/930 e sinais corretos |
+
+Na primeira execução, as asserções XPath dos novos testes tentaram interpretar HTML5 como XML e falharam antes de conferir as páginas. O teste foi adaptado para ler o saldo e as células do HTML renderizado, sem mudar a aplicação. A suíte completa da versão final passou. Nenhuma regra de autenticação ou autorização foi alterada.
+
+Foram consultadas as orientações registradas em `docs/REVISOES.md` do Lab02: hierarquia de usuários/agentes e cadastro associado ao perfil real. A hierarquia de usuários e os cadastros do projeto de moedas seguem esses princípios. As notas detalhadas e a lista de descontos de avaliações anteriores ainda não foram fornecidas; esta revisão não atribui novos apontamentos ao professor.
+
+A execução dos ajustes ocorreu após o horário de aula informado no roteiro. Ela não comprova participação nem substitui demonstração em aula ou vídeo. O registro original abaixo e suas evidências de outubro foram preservados como histórico.
+
+## Resultado original — 19/10/2026
 
 **TECHNICALLY_COMPLETE para demonstração local.** A Sprint 1 da Release 2 foi implementada na branch `lab04-sprint1`, a partir de `f704297`, mantendo o mesmo projeto. A suíte terminou com **29 testes, zero falhas, zero erros e zero ignorados**. O fluxo foi demonstrado no navegador com banco temporário e captura SMTP local. Não houve integração à main nesta execução.
 

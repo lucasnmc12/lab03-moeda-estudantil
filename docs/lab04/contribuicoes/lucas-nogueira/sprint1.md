@@ -21,3 +21,9 @@ Na demonstração pelo navegador, utilizei um banco temporário e contas fictíc
 ### Uso do Codex
 
 Usei o Codex, da OpenAI, como apoio na análise do roteiro, implementação dos templates e notificações, escrita e execução dos testes, demonstração local e documentação. Mantive os registros anteriores do Lab03 e organizei o trabalho da nova sprint em commits separados, com horários reais.
+
+### Revisão de 09/11/2026
+
+Depois da integração do PR #1, acrescentei dois cenários de teste para fechar lacunas na verificação dos extratos. Conferi recebimentos e resgates juntos no histórico do aluno, com saldo, sinais, descrições e ordem das datas. Também incluí dois professores com créditos e envios diferentes para verificar que cada um consulta somente suas próprias movimentações. Os testes passam pelo login e pela página real, usando o banco isolado da suíte.
+
+Mantive as regras existentes e atualizei o roteiro e o registro de verificação. A suíte passou de 29 para 31 testes, sem falhas ou erros. O Codex apoiou essa revisão e a execução dos checks. Os horários desta execução são posteriores à aula; não os apresento como comprovação de participação. As notas detalhadas do professor, a apresentação em aula ou vídeo e a entrega no Canvas continuam pendentes de informação ou ação minha.

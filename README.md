@@ -2,7 +2,7 @@
 
 # Sistema de Moeda Estudantil
 
-Projeto iniciado na Release 1 do Laboratório 03 e continuado na **Sprint 1 da Release 2 (Lab04S01)**, na branch `lab04-sprint1`. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas. Os registros e as tags do Lab03 foram preservados.
+Projeto iniciado na Release 1 do Laboratório 03 e continuado na **Sprint 1 da Release 2 (Lab04S01)**, integrada à `main` pelo PR #1. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas. Os registros e as tags do Lab03 foram preservados.
 
 **Autor:** Lucas Nogueira. **Repositório:** [lucasnmc12/lab03-moeda-estudantil](https://github.com/lucasnmc12/lab03-moeda-estudantil), independente dos laboratórios anteriores, com a continuação do Lab04 na mesma base.
 
@@ -13,7 +13,7 @@ Envio de moedas e extratos foram reaproveitados da Release 1. Esta sprint acresc
 - [Escopo e critérios](docs/lab04/sprint1/PLANO.md), [verificação da entrega](docs/lab04/sprint1/VERIFICACAO.md) e [roteiro de demonstração](docs/lab04/sprint1/DEMONSTRACAO.md).
 - [Contribuições de Lucas](docs/lab04/contribuicoes/lucas-nogueira/sprint1.md), [enunciado](docs/lab04/enunciado.txt) e [roteiro original](docs/lab04/sprint1/roteiro-original.txt).
 - As Sprints 2 e 3 do Lab04 não fazem parte desta entrega. Vantagens e cupons presentes no código foram herdados do Lab03.
-- Demonstração local verificada; apresentação em aula ou vídeo e entrega no Canvas continuam a cargo do aluno. A branch será integrada à `main` posteriormente.
+- Demonstração local verificada; apresentação em aula ou vídeo e entrega no Canvas continuam a cargo do aluno. A revisão de 09/11/2026 acrescentou cobertura dos extratos com recebimentos e resgates, ordem das movimentações e isolamento entre professores.
 
 ## Status da Release 1
 
@@ -152,7 +152,7 @@ Imagens de uma execução local com dados fictícios. O professor enviou 120 moe
 ./mvnw clean verify
 ```
 
-29 testes na branch `lab04-sprint1` cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados da Release 1](docs/BUILD.md) e [verificação da Lab04S01](docs/lab04/sprint1/VERIFICACAO.md).
+31 testes na `main` cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, extratos com recebimentos e resgates em ordem decrescente e isolamento entre professores, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados da Release 1](docs/BUILD.md) e [verificação da Lab04S01](docs/lab04/sprint1/VERIFICACAO.md).
 
 ## Apresentações
 

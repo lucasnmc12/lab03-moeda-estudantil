@@ -5,7 +5,7 @@
 Na raiz do projeto, com JDK 21:
 
 ```bash
-git switch lab04-sprint1
+git switch main
 ./mvnw clean verify
 ```
 
@@ -34,6 +34,12 @@ Abrir http://localhost:8080 e http://localhost:8025. O capturador só recebe ema
 7. Abrir a caixa em http://localhost:8025 e aguardar a rotina de entrega, executada a cada 15 segundos. Mostrar os dois destinatários, os assuntos distintos e a mesma quantidade e motivo.
 8. Explicar que a confirmação do professor informa **Você enviou**, enquanto a notificação do aluno informa **Você recebeu**. Os textos fixos estão em arquivos separados, e os dados variáveis vêm da movimentação.
 9. Explicar a retentativa: se o SMTP estiver desligado, as duas notificações ficam pendentes no banco. Religar o capturador e aguardar a entrega; o saldo não deve mudar novamente.
+
+## Conferência adicional dos extratos — revisão de 09/11/2026
+
+Para mostrar a consulta preparada para os dois tipos de movimentação, pode-se usar a funcionalidade de vantagens já herdada do Lab03. Com contas e dados fictícios, cadastrar uma oferta de 40 moedas como empresa parceira e resgatá-la como o aluno que recebeu 120. Após novo reconhecimento de 30 moedas, o extrato do aluno deve mostrar saldo 110 e, do mais recente ao mais antigo, +30, −40 e +120. O envio de 30 deve acontecer depois do resgate para reproduzir essa ordem manualmente.
+
+Conferir também outra conta de aluno, que não deve mostrar os lançamentos anteriores. Em ambiente com dois professores previamente provisionados, cada um deve ver somente seus créditos e envios. A criação de professores permanece fora do cadastro público. Esses cenários são verificados automaticamente por `ExtratoMvcTest`, com login real e banco de teste; não houve nova demonstração no navegador nesta revisão. O uso da funcionalidade herdada de vantagens não representa uma entrega nova das Sprints 2 ou 3 do Lab04.
 
 ## Explicação da implementação
 
