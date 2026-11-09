@@ -21,7 +21,7 @@ public class MoedaController {
     }
     @PostMapping("/moedas/enviar") public String reconhecer(@Valid @ModelAttribute("form") EnvioForm form,BindingResult erros,Principal principal,Model model,RedirectAttributes flash) {
         if (!erros.hasErrors()) {
-            try { moedas.enviar(principal.getName(),form.getAlunoId(),form.getQuantidade(),form.getMotivo()); flash.addFlashAttribute("sucesso","Reconhecimento enviado. O email está na fila de entrega."); return "redirect:/extrato"; }
+            try { moedas.enviar(principal.getName(),form.getAlunoId(),form.getQuantidade(),form.getMotivo()); flash.addFlashAttribute("sucesso","Reconhecimento enviado. Os emails de confirmação e recebimento estão na fila de entrega."); return "redirect:/extrato"; }
             catch (IllegalArgumentException e) { erros.reject("envio",e.getMessage()); }
         }
         model.addAttribute("alunos",alunos.findByAtivoTrueOrderByNome()); return "moedas/enviar";

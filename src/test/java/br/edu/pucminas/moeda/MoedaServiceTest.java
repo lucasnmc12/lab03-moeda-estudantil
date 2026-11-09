@@ -19,11 +19,17 @@ class MoedaServiceTest extends BaseIntegracao {
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().string(org.hamcrest.Matchers.containsString("Participação")));
     }
-    @Test void envioDebitaCreditaRegistraMotivoENotificacao() {
+    @Test void envioDebitaCreditaRegistraMotivoEDuasNotificacoes() {
         saldoProfessor(1000); moedas.enviar(professor.getEmail(),ana.getId(),125,"Bom trabalho");
         assertEquals(875,professores.findById(professor.getId()).orElseThrow().getSaldo());
-        assertEquals(125,alunos.findById(ana.getId()).orElseThrow().getSaldo()); assertEquals(1,notificacoes.count());
+        assertEquals(125,alunos.findById(ana.getId()).orElseThrow().getSaldo()); assertEquals(2,notificacoes.count());
         assertEquals("Bom trabalho",envios.findAll().getFirst().getMotivo());
+        var mensagens=notificacoes.findAll();
+        var confirmacao=mensagens.stream().filter(n->n.getDestinatario().equals(professor.getEmail())).findFirst().orElseThrow();
+        var recebimento=mensagens.stream().filter(n->n.getDestinatario().equals(ana.getEmail())).findFirst().orElseThrow();
+        assertTrue(confirmacao.getTexto().contains("Você enviou 125 moedas para Ana"));
+        assertTrue(recebimento.getTexto().contains("Você recebeu 125 moedas de Professor"));
+        assertTrue(mensagens.stream().allMatch(n->n.getTexto().contains("Bom trabalho")));
         assertEquals(1,moedas.extrato(ana.getEmail()).size()); assertEquals(0,moedas.extrato(bruno.getEmail()).size());
     }
     @Test void envioInvalidoNaoAlteraSaldoNemCriaLancamento() {

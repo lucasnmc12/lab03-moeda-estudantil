@@ -1,0 +1,10 @@
+Olá, [(${professor})]!
+
+Você enviou [(${quantidade})] moedas para [(${aluno})].
+
+Motivo do reconhecimento:
+[(${motivo})]
+
+O envio foi concluído. Consulte seu extrato para acompanhar o saldo e as movimentações.
+
+Sistema de Moeda Estudantil

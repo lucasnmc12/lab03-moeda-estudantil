@@ -25,7 +25,7 @@ class NotificacaoSmtpTest extends BaseIntegracao {
             ExecutorService pool=Executors.newSingleThreadExecutor();
             Future<List<String>> recebidos=pool.submit(()->{
                 List<String> mensagens=new ArrayList<>();
-                while (mensagens.size()<3) {
+                while (mensagens.size()<4) {
                     try (Socket socket=smtp.accept();var leitor=new BufferedReader(new InputStreamReader(socket.getInputStream(),StandardCharsets.UTF_8));var saida=new PrintWriter(socket.getOutputStream(),true,StandardCharsets.UTF_8)) {
                         saida.print("220 localhost SMTP teste\r\n");saida.flush();boolean dados=false;StringBuilder mensagem=new StringBuilder();String linha;
                         while ((linha=leitor.readLine())!=null) {
@@ -44,11 +44,22 @@ class NotificacaoSmtpTest extends BaseIntegracao {
             });
             try {
                 entrega.entregarPendentes();var mensagens=recebidos.get(10,TimeUnit.SECONDS);
-                assertEquals(3,mensagens.size());assertEquals(2,mensagens.stream().filter(m->m.contains(troca.getCodigo())).count());
+                assertEquals(4,mensagens.size());assertEquals(2,mensagens.stream().filter(m->m.contains(troca.getCodigo())).count());
                 assertTrue(mensagens.stream().anyMatch(m->m.contains("To: "+ana.getEmail())));
                 assertTrue(mensagens.stream().anyMatch(m->m.contains("To: "+parceiro.getEmail())));
+                var decodificadas=new ArrayList<jakarta.mail.internet.MimeMessage>();
+                for (String mensagem:mensagens) decodificadas.add(new jakarta.mail.internet.MimeMessage(
+                    jakarta.mail.Session.getInstance(new Properties()),new ByteArrayInputStream(mensagem.getBytes(StandardCharsets.UTF_8))));
+                var confirmacao=decodificadas.stream().filter(m->{try{return m.getSubject().equals("Confirmação de envio de moedas");}catch(Exception e){throw new RuntimeException(e);}}).findFirst().orElseThrow();
+                var recebimento=decodificadas.stream().filter(m->{try{return m.getSubject().equals("Você recebeu moedas estudantis");}catch(Exception e){throw new RuntimeException(e);}}).findFirst().orElseThrow();
+                assertEquals(professor.getEmail(),((jakarta.mail.internet.InternetAddress)confirmacao.getAllRecipients()[0]).getAddress());
+                assertEquals(ana.getEmail(),((jakarta.mail.internet.InternetAddress)recebimento.getAllRecipients()[0]).getAddress());
+                assertTrue(confirmacao.getContent().toString().contains("Você enviou 100 moedas para Ana"));
+                assertTrue(recebimento.getContent().toString().contains("Você recebeu 100 moedas de Professor"));
+                assertTrue(confirmacao.getContent().toString().contains("Participação"));
+                assertTrue(recebimento.getContent().toString().contains("Participação"));
                 assertTrue(notificacoes.findAll().stream().allMatch(n->n.getEnviadaEm()!=null && n.getTentativas()==2));
-                entrega.entregarPendentes();assertEquals(3,notificacoes.count());
+                entrega.entregarPendentes();assertEquals(4,notificacoes.count());
             } finally { pool.shutdownNow(); }
         } finally { sender.setPort(portaOriginal);sender.setHost(hostOriginal); }
     }
@@ -58,7 +69,8 @@ class NotificacaoSmtpTest extends BaseIntegracao {
         saldoProfessor(100);moedas.enviar(professor.getEmail(),ana.getId(),30,"Mérito");
         try {
             sender.setHost("127.0.0.1");sender.setPort(fechada);entrega.entregarPendentes();
-            var n=notificacoes.findAll().getFirst();assertNull(n.getEnviadaEm());assertEquals(1,n.getTentativas());
+            assertEquals(2,notificacoes.count());
+            assertTrue(notificacoes.findAll().stream().allMatch(n->n.getEnviadaEm()==null && n.getTentativas()==1));
             assertEquals(70,professores.findById(professor.getId()).orElseThrow().getSaldo());
             assertEquals(30,alunos.findById(ana.getId()).orElseThrow().getSaldo());assertEquals(1,envios.count());
         } finally { sender.setPort(portaOriginal);sender.setHost(hostOriginal); }

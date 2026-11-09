@@ -1,0 +1,65 @@
+Sprint 1 (Lab04S01)
+Sistema de Moeda Estudantil (Release 2) - Continuação
+Informação	Valor
+Sprint	Lab04S01
+Valor	6,0 pontos
+Entregáveis	Envio de moedas, consulta de extrato (professor e aluno), templates de email, demonstração funcional
+Peso dos commits durante a aula	40% da nota da sprint
+
+
+Este roteiro complementa o enunciado do Laboratório 04 e a Rubrica Lab04S01. Consulte o enunciado para os critérios completos de avaliação e prazos.
+
+Nota de transparência sobre uso de IA: em conformidade com a política de uso responsável de Inteligência Artificial da disciplina, informa-se que este roteiro foi produzido com apoio da ferramenta Claude, da empresa Anthropic, utilizada na geração e revisão de texto. O conteúdo foi revisado pelo professor antes da disponibilização aos alunos.
+
+1. Objetivo da Sprint
+Esta é a primeira sprint da Release 2, que dá continuidade ao sistema entregue na Release 1 (Laboratório 03). Nesta sprint, o grupo implementa os dois primeiros casos de uso da Release 2: o envio de moedas pelo professor ao aluno e a consulta de extrato, disponível tanto para professores quanto para alunos. Também é preciso configurar o envio automático de emails de confirmação, com um template específico para o professor e outro para o aluno, e preparar uma demonstração funcional (em laboratório ou em vídeo, caso o ambiente não possa ser reproduzido na aula).
+A rubrica desta sprint distribui os 6,0 pontos assim:
+Critério	Peso
+Implementação do envio de moedas e consulta de extrato (professor e aluno)	1,6
+Templates de email de confirmação (envio e recebimento de moedas)	1,0
+Demonstração funcional (ambiente em laboratório ou vídeo)	1,0
+Histórico e volume de commits durante o horário da aula	2,4
+
+
+2. Pré-requisitos
+- Release 1 (Lab03) concluída: modelo de classes, modelo ER, persistência e CRUDs de aluno e empresa parceira funcionando.
+- Classes Usuario, Professor, Aluno e a hierarquia de Transacao (com EnvioMoeda) já modeladas na Sprint 1 do Lab03 revisadas pelo grupo.
+- Ambiente de envio de email disponível (conta SMTP de teste, ou serviço como Mailtrap/Ethereal para ambiente de desenvolvimento).
+3. Conceitos-chave
+3.1 Envio de moedas como uma transação
+O envio de moedas é uma operação que, ao mesmo tempo, debita o saldo do professor, credita o saldo do aluno e registra uma transação (EnvioMoeda) com o motivo do reconhecimento. Essas três ações devem ocorrer de forma atômica: se qualquer uma delas falhar, nenhuma das outras deve ser persistida. Em Spring, isso é obtido anotando o método de serviço com @Transactional.
+3.2 Extrato como consulta sobre o histórico de transações
+O extrato não é uma nova entidade: é uma consulta sobre as transações já existentes, filtradas por usuário. Para o professor, o extrato lista os envios que ele realizou; para o aluno, lista tanto as moedas recebidas quanto as trocas por vantagens (estas últimas serão implementadas em sprints futuras, mas a consulta já deve estar preparada para incluir ambos os tipos).
+3.3 Envio de email com template
+Um template de email separa o texto fixo (saudação, estrutura, encerramento) dos dados variáveis de cada envio (nome do destinatário, quantidade de moedas, motivo). Isso evita montar a mensagem inteira por concatenação de strings dentro do código de negócio, e facilita manter dois templates distintos, um para o professor (confirmando que o envio foi realizado) e um para o aluno (avisando que recebeu moedas).
+4. Passo a Passo
+Passo 1. Criar a branch da sprint
+Passo 2. Implementar o serviço de envio de moedas
+Passo 3. Implementar o controller do envio de moedas
+Passo 4. Commitar o envio de moedas
+Passo 5. Implementar a consulta de extrato
+Passo 6. Commitar a consulta de extrato
+Passo 7. Configurar o serviço de envio de email
+Passo 8. Configurar as credenciais de email no application.properties
+Passo 9. Commitar a configuração de email
+Passo 10. Testar o fluxo completo manualmente
+Passo 11. Preparar a demonstração funcional
+Passo 12. Abrir o Pull Request da sprint
+5. Commits Durante a Aula (40% da nota desta sprint)
+Este é o critério de maior peso da rubrica desta sprint. Ele avalia o histórico do repositório GitHub do grupo, verificando se os commits foram feitos durante o horário da aula (segundas-feiras, das 10h40 às 12h20).
+- Façam um commit por entrega concluída (serviço de envio, controller, extrato, templates de email), não um único commit no fim da aula.
+- Mensagens de commit claras, indicando o que foi implementado.
+- git push regular ao longo da aula, não apenas ao final.
+- Se o grupo precisar gravar um vídeo de demonstração, façam isso dentro do próprio horário de aula, e registrem o arquivo ou o link no repositório com um commit correspondente.
+6. Erros Comuns e Dicas
+- Esquecer @Transactional no envio de moedas. Sem essa anotação, uma falha no meio da operação pode debitar o professor sem creditar o aluno.
+- Misturar o texto dos dois templates de email. Revisem se o conteúdo enviado ao professor é realmente uma confirmação de envio, e o conteúdo enviado ao aluno é realmente uma notificação de recebimento.
+- Testar apenas o caminho feliz. Lembrem de testar o caso de saldo insuficiente, que deve ser rejeitado com uma mensagem compreensível.
+- Deixar credenciais de email reais no código versionado. Usem variáveis de ambiente ou um arquivo de configuração fora do controle de versão.
+- Gravar o vídeo de demonstração fora do horário de aula. Isso não conta para o critério de commits durante a aula.
+7. Checklist Final
+Critério da rubrica	Peso
+Implementação do envio de moedas e consulta de extrato (professor e aluno)	2,0
+Templates de email de confirmação (envio e recebimento de moedas)	1,0
+Demonstração funcional (ambiente em laboratório ou vídeo)	1,0
+Histórico e volume de commits durante o horário da aula	2,0

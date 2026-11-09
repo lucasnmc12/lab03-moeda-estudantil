@@ -1,0 +1,19 @@
+{
+  "environment": "Banco H2 temporário, aplicação8081, SMTP1026, caixa8026; dados fictícios; execução no navegador",
+  "professor_initial_balance": 1000,
+  "coins_sent": 120,
+  "professor_final_balance": 880,
+  "student_final_balance": 120,
+  "messages": [
+    {
+      "to": "professor@demo.local",
+      "subject": "Confirmação de envio de moedas",
+      "text": "Olá, Professor de demonstração!\r\n\r\nVocê enviou 120 moedas para Ana Sprint 1.\r\n\r\nMotivo do reconhecimento:\r\nParticipação na modelagem e colaboração em aula — demonstração fictícia.\r\n\r\nO envio foi concluído. Consulte seu extrato para acompanhar o saldo e as movimentações.\r\n\r\nSistema de Moeda Estudantil"
+    },
+    {
+      "to": "ana.sprint1@demo.local",
+      "subject": "Você recebeu moedas estudantis",
+      "text": "Olá, Ana Sprint 1!\r\n\r\nVocê recebeu 120 moedas de Professor de demonstração.\r\n\r\nMotivo do reconhecimento:\r\nParticipação na modelagem e colaboração em aula — demonstração fictícia.\r\n\r\nParabéns pelo reconhecimento! Consulte seu extrato para acompanhar as moedas recebidas.\r\n\r\nSistema de Moeda Estudantil"
+    }
+  ]
+}
