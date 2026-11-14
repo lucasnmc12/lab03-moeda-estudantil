@@ -1,0 +1,34 @@
+@startuml
+title Listar vantagens
+actor Aluno
+participant "Spring Security" as F
+boundary "VantagemController" as C
+control "AcessoService" as A
+database "VantagemRepository" as R
+Aluno -> F : GET /vantagens
+alt Sem sessão
+  F --> Aluno : redireciona para login
+else Aluno autenticado
+  F -> C : lista(principal, model)
+  activate C
+  C -> A : atual(principal.getName())
+  A --> C : aluno autenticado
+  C -> R : findByAtivaTrueAndEmpresaAtivoTrueOrderByIdDesc()
+  R --> C : vantagens disponíveis
+  alt Nenhuma vantagem disponível
+    C --> Aluno : vantagens/lista com mensagem de catálogo vazio
+  else Catálogo com resultados
+    C --> Aluno : vantagens/lista com descrição, custo, saldo e URL da foto
+    loop Imagens exibidas
+      Aluno -> C : GET /vantagens/{id}/foto
+      C -> R : findById(id)
+      alt Foto encontrada
+        C --> Aluno : imagem PNG ou JPEG
+      else Vantagem não encontrada
+        C --> Aluno : HTTP 404
+      end
+    end
+  end
+  deactivate C
+end
+@enduml

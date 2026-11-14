@@ -1,0 +1,61 @@
+@startuml
+title Enviar moedas
+actor Professor
+boundary "MoedaController" as MVC
+control "MoedaService" as S
+control "AcessoService" as A
+entity "Professor / Aluno" as U
+database "EnvioMoedaRepository" as E
+control "EmailReconhecimento" as T
+database "NotificacaoRepository" as N
+control "NotificacaoService" as W
+participant "SMTP" as M
+Professor -> MVC : POST /moedas/enviar
+activate MVC
+alt EnvioForm inválido
+  MVC --> Professor : moedas/enviar com erros
+else Formulário válido
+  MVC -> S : enviar(email, alunoId, quantidade, motivo)
+  activate S
+  group Transação de envio
+    S -> A : bloquear(email) e bloquearId(alunoId)
+    A --> S : professor e destinatário
+    alt Aluno inválido ou saldo insuficiente
+      S -> U : debitar(quantidade), se destinatário válido
+      U --> S : erro de saldo, quando insuficiente
+      S --> MVC : IllegalArgumentException
+      MVC --> Professor : formulário com erro
+    else Envio válido
+      S -> U : debitar(quantidade) e creditar(quantidade)
+      S -> E : save(EnvioMoeda)
+      S -> T : confirmacaoProfessor(envio)
+      opt Confirmação renderizada
+        S -> N : save(Notificacao do professor)
+        S -> T : recebimentoAluno(envio)
+      end
+      alt Falha ao preparar mensagem
+        S --> MVC : exceção e rollback do envio
+      else Templates renderizados
+        S -> N : save(Notificacao do aluno)
+        S --> MVC : envio registrado
+        MVC --> Professor : redirect:/extrato
+      end
+    end
+  end
+  deactivate S
+end
+deactivate MVC
+opt Após confirmação da transação
+  W -> N : findTop20ByEnviadaEmIsNullOrderByTentativasAscIdAsc()
+  loop Para cada pendência
+    W -> N : bloquear(id)
+    W -> M : sender.send(email), se ainda pendente
+    alt SMTP aceita
+      W -> W : mensagem.registrarEnvio()
+    else Falha SMTP
+      W -> W : mensagem.registrarFalha()
+      note right: Continua pendente para retentativa
+    end
+  end
+end
+@enduml
