@@ -16,3 +16,15 @@ Para regenerar os arquivos na raiz do repositório:
 ```sh
 plantuml -charset UTF-8 -tsvg -nometadata docs/lab04/sprint2/diagramas/*.puml
 ```
+
+## Verificação
+
+- `./mvnw clean verify`: 32 testes, sem falhas, erros ou ignorados. A suíte inclui a regressão de custo zero no formulário e os testes de SMTP local da Sprint 1.
+- Aplicação no perfil `demo`, com banco H2 temporário e contas fictícias: conferência via HTTP do login dos dois perfis, catálogo vazio, rejeição do custo zero com descrição preservada, cadastro por 40 moedas, entrega dos bytes do PNG e retirada da oferta.
+- No catálogo do aluno com saldo zero, a oferta apresentou descrição, parceiro, foto, custo e quantas moedas faltavam. A tentativa de abrir o formulário de cadastro como aluno retornou HTTP 403.
+
+Para reproduzir, inicie a aplicação com o perfil `demo`, crie uma conta de empresa e uma de aluno e abra o menu **Vantagens** com cada perfil. Como empresa, cadastre uma oferta com PNG ou JPEG de até 2 MB. Como aluno, confira o cartão, o saldo e o aviso de moedas faltantes. Retire a oferta com a empresa e atualize o catálogo do aluno.
+
+O roteiro menciona 40% para o histórico, enquanto a rubrica atribui 2 de 7 pontos. Os commits desta execução foram feitos fora do horário de aula indicado no roteiro.
+
+[Contribuição individual](../contribuicoes/lucas-nogueira/sprint2.md)
