@@ -28,7 +28,7 @@ else Campos válidos
   S -> S : validar descrição, custo e bytes da foto
   alt Foto ausente ou inválida
     S --> C : IllegalArgumentException
-    C --> P : formulário com mensagem junto à foto
+    C --> P : formulário com mensagem de erro sobre a foto
   else Dados válidos
     S -> R : save(new Vantagem(empresa, descrição, custo, foto, tipo))
     R --> S : vantagem persistida
