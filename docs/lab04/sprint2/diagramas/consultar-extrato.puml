@@ -1,0 +1,38 @@
+@startuml
+title Consultar extrato
+actor "Professor ou aluno" as U
+participant "Spring Security" as F
+boundary "MoedaController" as C
+control "MoedaService" as S
+control "AcessoService" as A
+database "EnvioMoedaRepository" as E
+database "CreditoSemestralRepository" as P
+database "TrocaVantagemRepository" as T
+U -> F : GET /extrato
+alt Sem sessão ou perfil sem acesso
+  F --> U : login ou HTTP 403
+else Professor ou aluno autenticado
+  F -> C : extrato(principal, model)
+  activate C
+  C -> S : extrato(principal.getName())
+  activate S
+  S -> A : atual(email)
+  A --> S : usuário autenticado
+  alt Professor
+    S -> E : findByProfessorIdOrderByDataDesc(id)
+    E --> S : envios próprios
+    S -> P : findByProfessorIdOrderByDataDesc(id)
+    P --> S : créditos próprios
+  else Aluno
+    S -> E : findByAlunoIdOrderByDataDesc(id)
+    E --> S : recebimentos próprios
+    S -> T : findByAlunoIdOrderByDataDesc(id)
+    T --> S : resgates próprios
+  end
+  S -> S : ordenar movimentações por data decrescente
+  S --> C : transações
+  deactivate S
+  C --> U : moedas/extrato com saldo e histórico ou mensagem de extrato vazio
+  deactivate C
+end
+@enduml

@@ -13,17 +13,21 @@
 <h1 th:text="${edicao == true ? 'Editar vantagem' : 'Uma nova vantagem'}">
 </h1>
 <form th:action="${acao}" th:object="${form}" method="post" enctype="multipart/form-data" class="formulario">
-<div th:if="${#fields.hasAnyErrors()}" class="alerta erro" role="alert">
+<div th:if="${#fields.hasGlobalErrors()}" class="alerta erro" role="alert">
 <ul>
-<li th:each="e : ${#fields.allErrors()}" th:text="${e}">
+<li th:each="e : ${#fields.globalErrors()}" th:text="${e}">
 </li>
 </ul>
 </div>
 <label for="descricao">Descrição *</label>
-<textarea id="descricao" th:field="*{descricao}" rows="3" required maxlength="500">
+<textarea id="descricao" th:field="*{descricao}" th:errorclass="invalido"
+          th:attr="aria-invalid=${#fields.hasErrors('descricao')},aria-describedby=${#fields.hasErrors('descricao') ? 'erro-descricao' : null}" rows="3" required maxlength="500">
 </textarea>
+<p id="erro-descricao" class="campo-erro" role="alert" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
 <label for="custo">Custo em moedas *</label>
-<input id="custo" th:field="*{custo}" type="number" min="1" required>
+<input id="custo" th:field="*{custo}" th:errorclass="invalido" type="number" min="1" required
+       th:attr="aria-invalid=${#fields.hasErrors('custo')},aria-describedby=${#fields.hasErrors('custo') ? 'erro-custo' : null}">
+<p id="erro-custo" class="campo-erro" role="alert" th:if="${#fields.hasErrors('custo')}" th:errors="*{custo}"></p>
 <label for="foto">Foto do produto <span th:if="${edicao != true}">*</span>
 </label>
 <input id="foto" name="foto" type="file" accept="image/png,image/jpeg" th:required="${edicao != true}">

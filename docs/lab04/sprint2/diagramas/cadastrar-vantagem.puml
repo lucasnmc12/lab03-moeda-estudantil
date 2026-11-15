@@ -1,0 +1,41 @@
+@startuml
+title Cadastrar vantagem
+actor "Empresa parceira" as P
+boundary "VantagemController" as C
+control "AcessoService" as A
+control "VantagemService" as S
+database "VantagemRepository" as R
+P -> C : GET /vantagens/nova
+activate C
+C -> A : atual(email) e exigir(usuario, EmpresaParceira.class)
+alt Perfil incorreto
+  C --> P : HTTP 403
+else Empresa autenticada
+  C --> P : vantagens/formulario com VantagemForm
+end
+deactivate C
+P -> C : POST /vantagens/nova (descrição, custo, foto)
+activate C
+C -> A : atual(email) e exigir(usuario, EmpresaParceira.class)
+alt Perfil incorreto
+  C --> P : HTTP 403
+else Campos inválidos (ex.: custo zero)
+  C --> P : formulário com mensagem junto ao campo
+else Campos válidos
+  C -> S : salvar(email, null, form)
+  activate S
+  S -> A : bloquear(email) e exigir(usuario, EmpresaParceira.class)
+  S -> S : validar descrição, custo e bytes da foto
+  alt Foto ausente ou inválida
+    S --> C : IllegalArgumentException
+    C --> P : formulário com mensagem de erro sobre a foto
+  else Dados válidos
+    S -> R : save(new Vantagem(empresa, descrição, custo, foto, tipo))
+    R --> S : vantagem persistida
+    S --> C : vantagem
+    C --> P : redirect:/vantagens com confirmação
+  end
+  deactivate S
+end
+deactivate C
+@enduml

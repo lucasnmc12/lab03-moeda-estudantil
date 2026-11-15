@@ -12,7 +12,7 @@ Envio de moedas e extratos foram reaproveitados da Release 1. Esta sprint acresc
 
 - [Escopo e critérios](docs/lab04/sprint1/PLANO.md), [verificação da entrega](docs/lab04/sprint1/VERIFICACAO.md) e [roteiro de demonstração](docs/lab04/sprint1/DEMONSTRACAO.md).
 - [Contribuições de Lucas](docs/lab04/contribuicoes/lucas-nogueira/sprint1.md), [enunciado](docs/lab04/enunciado.txt) e [roteiro original](docs/lab04/sprint1/roteiro-original.txt).
-- As Sprints 2 e 3 do Lab04 não fazem parte desta entrega. Vantagens e cupons presentes no código foram herdados do Lab03.
+- A [Sprint 2 do Lab04](docs/lab04/sprint2/README.md) documenta quatro fluxos e revisa cadastro e listagem de vantagens, que vieram do Lab03. O diagrama geral e a entrega de resgates do Lab04 ficam para a Sprint 3.
 - Demonstração local verificada; apresentação em aula ou vídeo e entrega no Canvas continuam a cargo do aluno. A revisão de 09/11/2026 acrescentou cobertura dos extratos com recebimentos e resgates, ordem das movimentações e isolamento entre professores.
 
 ## Status da Release 1
@@ -152,7 +152,7 @@ Imagens de uma execução local com dados fictícios. O professor enviou 120 moe
 ./mvnw clean verify
 ```
 
-31 testes na `main` cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, extratos com recebimentos e resgates em ordem decrescente e isolamento entre professores, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados da Release 1](docs/BUILD.md) e [verificação da Lab04S01](docs/lab04/sprint1/VERIFICACAO.md).
+32 testes na branch `lab04-sprint2` cobrem CRUDs completos, entradas inválidas, duplicidade, login dos três perfis, acesso cruzado, conta desativada, CSRF, saldo, créditos semestrais, envios/resgates concorrentes, extratos com recebimentos e resgates em ordem decrescente e isolamento entre professores, cupom único, migração, persistência em arquivo e entrega SMTP local. Os testes usam dados e dependências locais isolados. [Resultados da Release 1](docs/BUILD.md) e [verificação da Lab04S01](docs/lab04/sprint1/VERIFICACAO.md).
 
 ## Apresentações
 

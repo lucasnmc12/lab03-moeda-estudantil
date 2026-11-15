@@ -14,7 +14,10 @@
 </h1>
 <a th:if="${usuario.perfil == 'EMPRESA'}" class="botao" th:href="@{/vantagens/nova}">Cadastrar vantagem</a>
 </div>
-<p th:if="${#lists.isEmpty(vantagens)}" class="vazio">Ainda não há vantagens disponíveis. As próximas conquistas começam aqui.</p>
+<p th:if="${usuario.perfil == 'ALUNO'}" class="saldo-linha">
+Seu saldo: <strong th:text="${usuario.saldo}"></strong> moedas.
+</p>
+<p th:if="${#lists.isEmpty(vantagens)}" class="vazio">Ainda não há vantagens disponíveis.</p>
 <div class="catalogo">
 <article class="vantagem" th:each="v : ${vantagens}">
 <img th:src="@{/vantagens/{id}/foto(id=${v.id})}" th:alt="${v.descricao}" loading="lazy">
@@ -26,6 +29,9 @@
 <p>
 <strong th:text="${v.custo}">
 </strong> moedas</p>
+<p class="nota" th:if="${usuario.perfil == 'ALUNO' and usuario.saldo < v.custo}">
+Faltam <strong th:text="${v.custo - usuario.saldo}"></strong> moedas para resgatar.
+</p>
 <form th:if="${usuario.perfil == 'ALUNO'}" th:action="@{/vantagens/{id}/resgatar(id=${v.id})}" method="post" onsubmit="return confirm('Confirma o resgate e o desconto das moedas?');">
 <button type="submit">Resgatar vantagem</button>
 </form>

@@ -23,6 +23,17 @@ class VantagemTest extends BaseIntegracao {
         assertArrayEquals(PNG,vantagens.findById(v.getId()).orElseThrow().getFoto());
         beneficios.remover(parceiro.getEmail(),v.getId()); assertFalse(vantagens.findById(v.getId()).orElseThrow().isAtiva());
     }
+    @Test void cadastroComCustoZeroDestacaCampoEPreservaDescricao() throws Exception {
+        mvc.perform(multipart("/vantagens/nova").file((MockMultipartFile) form().getFoto())
+                .with(user(parceiro.getEmail()).roles("EMPRESA")).with(csrf())
+                .param("descricao", "Desconto em livros").param("custo", "0"))
+            .andExpect(status().isOk())
+            .andExpect(model().attributeHasFieldErrors("form", "custo"))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("aria-describedby=\"erro-custo\"")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("maior que zero.")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("Desconto em livros")));
+        assertEquals(0, vantagens.count());
+    }
     @Test void rejeitaFotoFalsaCustoInvalidoEVantagemAlheia() {
         var f=form();f.setFoto(new MockMultipartFile("foto","falso.png","image/png",new byte[]{1,2}));
         assertThrows(IllegalArgumentException.class,()->beneficios.salvar(parceiro.getEmail(),null,f));
