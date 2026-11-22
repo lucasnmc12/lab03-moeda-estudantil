@@ -16,8 +16,9 @@ public class VantagemService {
     private final VantagemRepository vantagens;
     private final TrocaVantagemRepository trocas;
     private final NotificacaoRepository notificacoes;
-    public VantagemService(AcessoService acesso, VantagemRepository vantagens, TrocaVantagemRepository trocas, NotificacaoRepository notificacoes) {
-        this.acesso=acesso; this.vantagens=vantagens; this.trocas=trocas; this.notificacoes=notificacoes;
+    private final EmailReconhecimento emails;
+    public VantagemService(AcessoService acesso, VantagemRepository vantagens, TrocaVantagemRepository trocas, NotificacaoRepository notificacoes, EmailReconhecimento emails) {
+        this.acesso=acesso; this.vantagens=vantagens; this.trocas=trocas; this.notificacoes=notificacoes; this.emails=emails;
     }
     public Vantagem salvar(String email, Long id, VantagemForm form) {
         EmpresaParceira empresa=acesso.exigir(acesso.bloquear(email),EmpresaParceira.class);
@@ -62,9 +63,8 @@ public class VantagemService {
             .orElseThrow(() -> new IllegalArgumentException("Esta vantagem não está mais disponível."));
         aluno.debitar(vantagem.getCusto());
         TrocaVantagem troca=trocas.save(new TrocaVantagem(aluno,vantagem));
-        String texto="Cupom: "+troca.getCodigo()+"\nVantagem: "+troca.getDescricaoVantagem()+"\nCusto: "+troca.getQuantidade()+" moedas. Apresente o código na troca presencial.";
-        notificacoes.save(new Notificacao(troca,aluno.getEmail(),"Seu cupom de vantagem",texto));
-        notificacoes.save(new Notificacao(troca,vantagem.getEmpresa().getEmail(),"Cupom emitido para conferência",texto));
+        notificacoes.save(new Notificacao(troca,aluno.getEmail(),"Seu cupom de vantagem",emails.cupomAluno(troca)));
+        notificacoes.save(new Notificacao(troca,vantagem.getEmpresa().getEmail(),"Cupom emitido para conferência",emails.confirmacaoEmpresa(troca)));
         return troca;
     }
     public void utilizar(String email, String codigo) {

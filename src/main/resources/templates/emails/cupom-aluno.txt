@@ -1,0 +1,13 @@
+Olá, [(${aluno})]!
+
+Você trocou [(${quantidade})] moedas pela vantagem:
+[(${descricao})]
+
+Empresa parceira: [(${empresa})]
+Cupom: [(${codigo})]
+
+O valor já foi descontado do seu saldo. Apresente este código à empresa na troca presencial.
+A empresa recebeu o mesmo código para conferir e confirmar a utilização uma única vez.
+Consulte seus cupons e seu extrato no sistema.
+
+Sistema de Moeda Estudantil

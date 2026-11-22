@@ -1,6 +1,7 @@
 package br.edu.pucminas.moeda.servico;
 
 import br.edu.pucminas.moeda.modelo.EnvioMoeda;
+import br.edu.pucminas.moeda.modelo.TrocaVantagem;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
@@ -31,6 +32,24 @@ public class EmailReconhecimento {
 
     public String recebimentoAluno(EnvioMoeda envio) {
         return renderizar("recebimento-aluno", envio);
+    }
+
+    public String cupomAluno(TrocaVantagem troca) {
+        return renderizarTroca("cupom-aluno", troca);
+    }
+
+    public String confirmacaoEmpresa(TrocaVantagem troca) {
+        return renderizarTroca("confirmacao-empresa", troca);
+    }
+
+    private String renderizarTroca(String template, TrocaVantagem troca) {
+        var contexto = new Context(Locale.forLanguageTag("pt-BR"), Map.of(
+            "aluno", troca.getAluno().getNome(),
+            "empresa", troca.getVantagem().getEmpresa().getNome(),
+            "codigo", troca.getCodigo(),
+            "descricao", troca.getDescricaoVantagem(),
+            "quantidade", troca.getQuantidade()));
+        return templates.process(template, contexto);
     }
 
     private String renderizar(String template, EnvioMoeda envio) {

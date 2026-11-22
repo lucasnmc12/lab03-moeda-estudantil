@@ -1,0 +1,63 @@
+@startuml
+title Trocar moedas por uma vantagem
+hide footbox
+skinparam shadowing false
+actor Aluno
+boundary VantagemController as MVC
+control VantagemService as S
+control AcessoService as A
+database VantagemRepository as V
+entity "Aluno / TrocaVantagem" as D
+database TrocaVantagemRepository as R
+control EmailReconhecimento as T
+database NotificacaoRepository as N
+Aluno -> MVC : POST /vantagens/{id}/resgatar
+activate MVC
+MVC -> S : resgatar(email, id)
+activate S
+group @Transactional na classe VantagemService
+  S -> A : bloquear(email)
+  A --> S : usuário autenticado
+  S -> A : exigir(usuario, Aluno.class)
+  alt Perfil diferente de aluno
+    A --> S : ResponseStatusException (403)
+    S --> MVC : acesso negado
+    MVC --> Aluno : HTTP 403
+  else Aluno autorizado
+    S -> V : bloquear(id)
+    V --> S : vantagem ou vazio
+    alt Vantagem ausente, inativa ou empresa inativa
+      S --> MVC : IllegalArgumentException
+      MVC --> Aluno : redirect:/vantagens com erro
+    else Vantagem disponível
+      S -> D : aluno.debitar(vantagem.getCusto())
+      alt Saldo insuficiente
+        D --> S : IllegalArgumentException
+        S --> MVC : erro sem cupom ou notificações
+        MVC --> Aluno : redirect:/vantagens com erro
+      else Débito aceito
+        S -> D : new TrocaVantagem(aluno, vantagem)
+        note right of D : UUID gerado uma única vez;\ncusto e descrição preservados
+        S -> R : save(troca)
+        S -> T : cupomAluno(troca)
+        T --> S : texto para o aluno
+        S -> N : save(Notificacao do aluno)
+        S -> T : confirmacaoEmpresa(troca)
+        alt Falha ao renderizar o segundo template
+          T --> S : exceção
+          S --> MVC : rollback de débito, troca e primeira notificação
+          MVC --> Aluno : página de erro
+        else Template renderizado
+          T --> S : texto da empresa com o mesmo código
+          S -> N : save(Notificacao da empresa)
+          S --> MVC : TrocaVantagem após commit
+          MVC --> Aluno : redirect:/cupons
+        end
+      end
+    end
+  end
+end
+deactivate S
+deactivate MVC
+note over R, N : Após commit, NotificacaoService entrega os emails por SMTP.\nFalha SMTP mantém pendência, sem executar resgatar novamente.
+@enduml
