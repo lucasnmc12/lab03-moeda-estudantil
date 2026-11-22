@@ -1,0 +1,12 @@
+Olá, [(${empresa})]!
+
+[(${aluno})] resgatou a vantagem:
+[(${descricao})]
+
+Custo: [(${quantidade})] moedas
+Cupom: [(${codigo})]
+
+O aluno recebeu este mesmo código. Confira o código apresentado presencialmente e confirme a utilização na página Conferir cupons, após entregar a vantagem.
+Cada cupom pode ser confirmado uma única vez.
+
+Sistema de Moeda Estudantil

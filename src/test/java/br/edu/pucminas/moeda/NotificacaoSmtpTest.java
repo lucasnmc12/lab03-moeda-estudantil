@@ -58,6 +58,14 @@ class NotificacaoSmtpTest extends BaseIntegracao {
                 assertTrue(recebimento.getContent().toString().contains("Você recebeu 100 moedas de Professor"));
                 assertTrue(confirmacao.getContent().toString().contains("Participação"));
                 assertTrue(recebimento.getContent().toString().contains("Participação"));
+                var cupom=decodificadas.stream().filter(m->{try{return m.getSubject().equals("Seu cupom de vantagem");}catch(Exception e){throw new RuntimeException(e);}}).findFirst().orElseThrow();
+                var conferencia=decodificadas.stream().filter(m->{try{return m.getSubject().equals("Cupom emitido para conferência");}catch(Exception e){throw new RuntimeException(e);}}).findFirst().orElseThrow();
+                assertEquals(ana.getEmail(),((jakarta.mail.internet.InternetAddress)cupom.getAllRecipients()[0]).getAddress());
+                assertEquals(parceiro.getEmail(),((jakarta.mail.internet.InternetAddress)conferencia.getAllRecipients()[0]).getAddress());
+                assertTrue(cupom.getContent().toString().contains("Você trocou 20 moedas"));
+                assertTrue(conferencia.getContent().toString().contains("Ana resgatou a vantagem"));
+                assertTrue(cupom.getContent().toString().contains(troca.getCodigo()));
+                assertTrue(conferencia.getContent().toString().contains(troca.getCodigo()));
                 assertTrue(notificacoes.findAll().stream().allMatch(n->n.getEnviadaEm()!=null && n.getTentativas()==2));
                 entrega.entregarPendentes();assertEquals(4,notificacoes.count());
             } finally { pool.shutdownNow(); }

@@ -1,0 +1,64 @@
+@startuml
+title Ciclo da moeda estudantil — Release 2
+hide footbox
+skinparam shadowing false
+actor Professor
+actor "Empresa parceira" as Empresa
+actor Aluno
+boundary "Controllers MVC\nMoedaController / VantagemController" as MVC
+control "MoedaService" as Moedas
+control "VantagemService" as Vantagens
+database "Repositórios JPA / H2" as DB
+control "NotificacaoService" as Fila
+participant "SMTP" as SMTP
+note over Professor, Aluno : Pré-condição dos fluxos: sessão autenticada no perfil correspondente
+== Reconhecer o mérito ==
+Professor -> MVC : Enviar moedas com motivo
+MVC -> Moedas : enviar(email, alunoId, quantidade, motivo)
+Moedas -> DB : Debitar professor, creditar aluno, registrar EnvioMoeda\ne duas notificações na mesma transação
+DB --> Moedas : Commit
+Moedas --> MVC : Envio registrado
+MVC --> Professor : Extrato atualizado
+== Oferecer vantagens ==
+Empresa -> MVC : Cadastrar descrição, foto e custo positivo
+MVC -> Vantagens : salvar(email, null, form)
+Vantagens -> DB : Persistir Vantagem da empresa
+DB --> Vantagens : Vantagem cadastrada
+MVC --> Empresa : Catálogo da empresa
+== Consultar saldo e escolher ==
+Aluno -> MVC : Consultar extrato
+MVC -> Moedas : extrato(email)
+Moedas -> DB : Consultar recebimentos e resgates do aluno
+DB --> Moedas : Histórico
+MVC --> Aluno : Saldo e movimentações
+Aluno -> MVC : Listar vantagens
+MVC -> DB : Buscar vantagens ativas de empresas ativas
+DB --> MVC : Descrição, foto, custo e empresa
+MVC --> Aluno : Catálogo com saldo e moedas faltantes
+== Trocar moedas por uma vantagem ==
+Aluno -> MVC : POST /vantagens/{id}/resgatar
+MVC -> Vantagens : resgatar(email, id)
+group Transação única, com bloqueio do aluno e da vantagem
+  Vantagens -> DB : Validar disponibilidade e saldo\nDebitar aluno e registrar TrocaVantagem
+  note right of Vantagens : Um UUID é gerado na TrocaVantagem.\nOs dois templates usam esse mesmo código.
+  Vantagens -> DB : Persistir notificações do aluno e da empresa
+  DB --> Vantagens : Commit do débito, cupom e notificações
+end
+Vantagens --> MVC : Cupom emitido
+MVC --> Aluno : Meus cupons
+== Entregar emails depois do commit ==
+Fila -> DB : Consultar notificações pendentes
+DB --> Fila : Confirmações de moedas e cupons
+loop Cada mensagem pendente
+  Fila -> SMTP : Enviar mensagem
+  SMTP --> Fila : Resultado
+  Fila -> DB : Registrar envio ou falha para nova tentativa
+end
+note over Fila, SMTP : Falha SMTP não repete o débito nem gera outro cupom
+== Conferir a troca presencial ==
+Aluno -> Empresa : Apresentar código do cupom
+Empresa -> MVC : POST /cupons/{codigo}/utilizar
+MVC -> Vantagens : utilizar(email, codigo)
+Vantagens -> DB : Validar parceiro dono e cupom não utilizado\nRegistrar utilizadaEm uma única vez
+MVC --> Empresa : Uso confirmado
+@enduml
