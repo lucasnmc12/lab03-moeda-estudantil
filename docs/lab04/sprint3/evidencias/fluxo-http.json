@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "verificacao": "HTTP real com sessão, H2 temporário e SMTP local",
+  "emails": 4,
+  "emailsCupom": 2,
+  "saldoFinalAluno": 80,
+  "cupom": "e57b3bdc-f502-45a7-a6d3-fdc444c7a882",
+  "confirmacaoUnica": true,
+  "saldoInsuficienteRejeitado": true,
+  "data": "2026-11-22",
+  "observacao": "Execução HTTP local com dados fictícios, sem entrega externa de email."
+}

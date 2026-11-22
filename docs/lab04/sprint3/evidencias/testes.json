@@ -1,0 +1,91 @@
+{
+  "comando": "./mvnw clean verify",
+  "data": "2026-11-22",
+  "total": 36,
+  "suites": [
+    {
+      "name": "br.edu.pucminas.moeda.CadastroAcessoTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.CadastroMvcTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.ExtratoMvcTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.MoedaAtomicidadeTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.MoedaServiceTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.MoedaSprint1MvcTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.NotificacaoSmtpTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.PersistenciaTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.SegurancaTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.TrocaAtomicidadeTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.TrocaSprint3MvcTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.edu.pucminas.moeda.VantagemTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ]
+}
