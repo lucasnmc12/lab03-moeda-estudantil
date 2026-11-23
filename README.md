@@ -2,9 +2,13 @@
 
 # Sistema de Moeda Estudantil
 
-Projeto iniciado na Release 1 do Laboratório 03 e continuado na **Release 2 do Laboratório 04**. As Sprints 1 e 2 foram integradas à `main`; a entrega final da Sprint 3 está na branch `lab04-sprint3`. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas. Os registros e as tags do Lab03 foram preservados.
+Projeto iniciado na Release 1 do Laboratório 03 e continuado na **Release 2 do Laboratório 04**, com suas três sprints integradas à `main`. A Release 3 do Laboratório 05 começa na branch `lab05-sprint1`. Professores reconhecem o mérito dos alunos com moedas virtuais, e empresas parceiras oferecem produtos e descontos em troca dessas moedas. Os registros e as tags do Lab03 foram preservados.
 
 **Autor:** Lucas Nogueira. **Repositório:** [lucasnmc12/lab03-moeda-estudantil](https://github.com/lucasnmc12/lab03-moeda-estudantil), independente dos laboratórios anteriores, com a continuação do Lab04 na mesma base.
+
+## Continuação — Laboratório 05, Sprint 1
+
+A [primeira etapa da Lab05S01](docs/lab05/sprint1/README.md) entrega o **Diagrama de Comunicação da troca de vantagem com QR Code**, com fonte PlantUML, SVG, PNG e referências ao código. A geração do QR Code, o email com anexo, o Diagrama de Implantação e a publicação em nuvem permanecem pendentes. O modelo diferencia o resgate existente das interações propostas para a Release 3.
 
 ## Continuação — Laboratório 04, Sprint 1
 
